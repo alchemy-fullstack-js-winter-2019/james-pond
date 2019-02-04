@@ -43,7 +43,7 @@
     ],
     "eol-last": [
       "error",
-      "always"
+      "never"
     ],
     "keyword-spacing": [
       "error",
