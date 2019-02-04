@@ -1,9 +1,14 @@
 const request = require('superagent');
 
-const getRoute = coordinates => {
+const getRoute = (start, stop) => {
   return request
-    .get(`https://transit.land/api/v1/stops/${coordinates}`)
-    .then(res => {
-         coordinates: res.body.coordinates
-    })
+    .get(`https://transit.land/api/v1/stops/${name}`)
+    .then(res => ({
+      start: res.body.stops.name;
+    }))
+    .get(`https://transit.land/api/v1/stops/${name}`)
+    .then(res => ({
+      stop: res.body.stops.name;
+    }))
+    
 };
