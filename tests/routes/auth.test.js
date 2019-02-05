@@ -1,14 +1,14 @@
 require('../../lib/routes/auth');
 require('dotenv').config();
-// const User = require('../../lib/models/User');
+const User = require('../../lib/models/User');
 const request = require('supertest');
 const connect = require('../../lib/utils/connect');
 const mongoose = require('mongoose');
 const app = require('../../lib/app');
 
-// const createUser = (username) => {
-//   return User.create({ username, password: 'password' });
-// };
+const createUser = (username) => {
+  return User.create({ username, password: 'password' });
+};
 
 describe('auth route testing', () => {
   beforeAll(() => {
@@ -23,7 +23,7 @@ describe('auth route testing', () => {
     mongoose.connection.close(done);
   });
 
-  it.only('can sign up a user', () => {
+  it('can sign up a user', () => {
     console.log('***AUTH TEST HERE***');
     return request(app)
       .post('/auth/signup')
@@ -39,6 +39,27 @@ describe('auth route testing', () => {
           },
           token: expect.any(String)
         });
+      });
+  });
+
+  it.only('can sign in a user', () => {
+    return createUser('Bill')
+      .then(() => {
+        return request(app)
+          .post('/auth/signin')
+          .send({
+            username: 'Bill',
+            password: 'password'
+          })
+          .then(res => {
+            expect(res.body).toEqual({
+              user: {
+                _id: expect.any(String),
+                username: 'Bill',
+              },
+              token: expect.any(String)
+            });
+          });
       });
   });
 });
