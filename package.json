@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
-    "pretest": "npm run lint",
     "test": "jest --verbose --runInBand --detectOpenHandles",
     "test:watch": "jest --watch --verbose --runInBand --detectOpenHandles",
     "start": "node server.js",
