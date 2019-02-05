@@ -1,8 +1,16 @@
 const User = require('../lib/models/User');
 const mkdirp = require('mkdirp');
 const rimraf = require('rimraf');
+const request = require('supertest');
+const app = require('../lib/app');
 
-describe('User', () => {
+describe.skip('User', () => {
+
+  const createUser = (username, password) => {
+    return User.create({ username, password })
+      .then(user => ({ ...user, _id: user._id.toString() }));
+  };
+
   let user = null;
   beforeEach(done => {
     rimraf('./testData/user', err => {
@@ -20,13 +28,24 @@ describe('User', () => {
     user = new User({ username: 'username', password: 'password' });
   });
 
-  it.only('creates a user', done => {
-    console.log('here', typeof user);
-    user.create({ username: 'abel', password: 'password' }, (err, createdPerson) => {
-      expect(err).toBeFalsy();
-      expect(createdPerson).toEqual({ username: 'abel', password: 'password', _id: expect.any(String) });
-      done();
-    });
+  it('creates a user', () => {
+    return createUser('abel', 'password')
+      .then(user => {
+        return request(app)
+          .post('/users')
+          .send({
+            username: user._id,
+            password: 'password'
+          })
+          .then(res => {
+            expect(res.body).toEqual({
+              username: expect.any(String),
+              password: 'password',
+              _id: expect.any(String),
+              __v: 0
+            });
+          });
+      });
   });
 
   it('finds an object by id', done => {
