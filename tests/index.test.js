@@ -4,7 +4,7 @@ const rimraf = require('rimraf');
 const request = require('supertest');
 const app = require('../lib/app');
 
-describe('User', () => {
+describe.skip('User', () => {
 
   const createUser = (username, password) => {
     return User.create({ username, password })
@@ -28,7 +28,7 @@ describe('User', () => {
     user = new User({ username: 'username', password: 'password' });
   });
 
-  it.only('creates a user', () => {
+  it('creates a user', () => {
     return createUser('abel', 'password')
       .then(user => {
         return request(app)
