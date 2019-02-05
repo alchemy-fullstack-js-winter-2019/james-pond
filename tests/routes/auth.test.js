@@ -1,14 +1,14 @@
 require('../../lib/routes/auth');
 require('dotenv').config();
-const User = require('../../lib/models/User');
+// const User = require('../../lib/models/User');
 const request = require('supertest');
 const connect = require('../../lib/utils/connect');
 const mongoose = require('mongoose');
 const app = require('../../lib/app');
 
-const createUser = (username) => {
-  return User.create({ username, password: 'password' });
-};
+// const createUser = (username) => {
+//   return User.create({ username, password: 'password' });
+// };
 
 describe('auth route testing', () => {
   beforeAll(() => {
@@ -23,24 +23,22 @@ describe('auth route testing', () => {
     mongoose.connection.close(done);
   });
 
-  it('can sign up a user', () => {
+  it.only('can sign up a user', () => {
     console.log('***AUTH TEST HERE***');
     return request(app)
       .post('/auth/signup')
       .send({ username: 'abel', password: 'password' })
       .then(res => {
-
+        console.log('id', typeof res.body.user._id, 'token', typeof res.body.token);
         console.log('***RESBODY AUTH TEST***', res.body);
 
         expect(res.body).toEqual({ 
           user: {
             _id: expect.any(String),
-            username: 'abel',
-            password: 'password'
+            username: 'abel'
           },
           token: expect.any(String)
         });
       });
-  
   });
 });
