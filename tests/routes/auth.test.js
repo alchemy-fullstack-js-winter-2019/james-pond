@@ -1,5 +1,5 @@
-require('../../lib/routes/auth');
 require('dotenv').config();
+require('../../lib/routes/auth');
 const User = require('../../lib/models/User');
 const request = require('supertest');
 const connect = require('../../lib/utils/connect');
