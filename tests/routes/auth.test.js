@@ -65,7 +65,7 @@ describe('auth route testing', () => {
       });
   });
 
-  it.only('can not sign in a user with a bad password', () => {
+  it('can not sign in a user with a bad password', () => {
     return getUser({ username: 'seed1' })
       .then(() => {
         return request(app)
@@ -79,5 +79,18 @@ describe('auth route testing', () => {
         expect(res.status).toEqual(401);
       });
   });
+  it('can not sign in a user with a bad username', () => {
+    return request(app)
+      .post('/auth/signin')
+      .send({
+        username: 'badUsername',
+        password: 'password'
+      })
+      .then(res => {
+        expect(res.status).toEqual(401);
+      });
+  });
+
+
 
 });
