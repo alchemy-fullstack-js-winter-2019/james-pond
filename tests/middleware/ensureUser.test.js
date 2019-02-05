@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { bearerToken, ensureAuth } = require('../../lib/middleware/ensureUser');
+const { bearerToken, ensureUser } = require('../../lib/middleware/ensureUser');
 const { tokenize } = require('../../lib/utils/token');
 
 describe('ensureAuth', () => {
@@ -26,7 +26,7 @@ describe('ensureAuth', () => {
 
     const next = jest.fn();
 
-    ensureAuth(req, {}, next)
+    ensureUser(req, {}, next)
       .then(() => {
         expect(req.user).toEqual({ username: 'connor' });
         expect(next).toHaveBeenCalled();
