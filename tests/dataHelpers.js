@@ -2,7 +2,6 @@ require('dotenv').config();
 const connect = require('../lib/utils/connect');
 const mongoose = require('mongoose');
 const seedData = require('./seedData');
-const Post = require('../lib/models/Post');
 const User = require('../lib/models/User');
 
 const request = require('supertest');
@@ -60,6 +59,5 @@ const createGetters = Model => {
 
 module.exports = {
   ...createGetters(User),
-  ...createGetters(Post),
   getToken: () => token
 };

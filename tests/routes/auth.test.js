@@ -5,6 +5,7 @@ const request = require('supertest');
 const connect = require('../../lib/utils/connect');
 const mongoose = require('mongoose');
 const app = require('../../lib/app');
+const { getUser } = require('../dataHelpers');
 
 const createUser = (username) => {
   return User.create({ username, password: 'password' });
@@ -42,7 +43,7 @@ describe('auth route testing', () => {
       });
   });
 
-  it.only('can sign in a user', () => {
+  it('can sign in a user', () => {
     return createUser('Bill')
       .then(() => {
         return request(app)
@@ -63,4 +64,20 @@ describe('auth route testing', () => {
           });
       });
   });
+
+  it.only('can not sign in a user with a bad password', () => {
+    return getUser({ username: 'seed1' })
+      .then(() => {
+        return request(app)
+          .post('/auth/signin')
+          .send({
+            username: 'seed1',
+            password: 'badPassword'
+          });
+      })
+      .then(res => {
+        expect(res.status).toEqual(401);
+      });
+  });
+
 });
