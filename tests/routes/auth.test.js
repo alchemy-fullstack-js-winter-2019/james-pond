@@ -5,7 +5,7 @@ const request = require('supertest');
 const connect = require('../../lib/utils/connect');
 const mongoose = require('mongoose');
 const app = require('../../lib/app');
-const { getUser } = require('../dataHelpers');
+const { getUser, getToken } = require('../dataHelpers');
 
 const createUser = (username) => {
   return User.create({ username, password: 'password' });
@@ -88,6 +88,18 @@ describe('auth route testing', () => {
       })
       .then(res => {
         expect(res.status).toEqual(401);
+      });
+  });
+
+  it('has a /verify route', () => {
+    return request(app)
+      .get('/auth/verify')
+      .set('Authorization', `Bearer ${getToken()}`)
+      .then(res => {
+        expect(res.body).toEqual({
+          username: 'seed1',
+          _id: expect.any(String)
+        });
       });
   });
 
