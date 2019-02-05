@@ -21,6 +21,7 @@ describe('User', () => {
   });
 
   it.only('creates a user', done => {
+    console.log('here', typeof user);
     user.create({ username: 'abel', password: 'password' }, (err, createdPerson) => {
       expect(err).toBeFalsy();
       expect(createdPerson).toEqual({ username: 'abel', password: 'password', _id: expect.any(String) });
