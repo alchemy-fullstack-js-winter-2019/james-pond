@@ -1,8 +1,9 @@
+/* eslint-disable no-console */
 require('dotenv').config();
 require('../../lib/utils/connect')();
 const mongoose = require('mongoose');
 const User = require('../../lib/models/User');
-const { Types } = require('mongoose');
+// const { Types } = require('mongoose');
 // const { tokenize, untokenize } = require('../../lib/utils/token');
 
 describe('User model', () => {
@@ -13,6 +14,6 @@ describe('User model', () => {
   it('validates a good model', () => {
     const user = new User({ username: 'connor', password: 'password' });
     console.log('here', typeof user._id);
-    expect(user.toJSON()).toEqual({ username: 'connor', password: 'password', _id: expect.any(String)});
+    expect(user.toJSON()).toEqual({ username: 'connor', password: 'password', _id: expect.any(String) });
   });
 });
