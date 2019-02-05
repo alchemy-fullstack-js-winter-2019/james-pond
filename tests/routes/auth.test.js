@@ -52,6 +52,7 @@ describe('auth route testing', () => {
             password: 'password'
           })
           .then(res => {
+            console.log('hello', res.body);
             expect(res.body).toEqual({
               user: {
                 _id: expect.any(String),
