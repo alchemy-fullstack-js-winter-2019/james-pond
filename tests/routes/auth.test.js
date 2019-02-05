@@ -26,7 +26,7 @@ describe('auth route testing', () => {
   it('can sign up a user', () => {
     console.log('***AUTH TEST HERE***');
     return request(app)
-      .post('/signup')
+      .post('/auth/signup')
       .send({ username: 'abel', password: 'password' })
       .then(res => {
 
