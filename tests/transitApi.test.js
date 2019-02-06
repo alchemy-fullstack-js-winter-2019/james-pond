@@ -13,7 +13,7 @@ describe('transit api service', () => {
   //     });
   // });
   it('gets a list of stops', () => {
-    return getRoutes()
+    return getRoutes(20)
       .then(routes => {
         expect(routes).toHaveLength(20);
       });

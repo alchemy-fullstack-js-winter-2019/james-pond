@@ -2,11 +2,11 @@
 /* eslint-disable no-undef */
 const request = require('superagent');
 
-const getRoutes = () => {
+const getRoutes = (num) => {
   return request
     .get('https://transit.land/api/v1/stops/')
     .then(res => {
-      console.log('res here', res.body.stops[0].tags);
+      console.log('res here', res.body.stops[0].name);
       // start: res.body.stops
     });
     
