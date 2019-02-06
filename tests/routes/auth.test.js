@@ -29,7 +29,6 @@ describe('auth route testing', () => {
       .post('/auth/signup')
       .send({ username: 'abel', password: 'password' })
       .then(res => {
-
         expect(res.body).toEqual({ 
           user: {
             _id: expect.any(String),
