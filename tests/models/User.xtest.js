@@ -13,7 +13,6 @@ describe('User model', () => {
 
   it('validates a good model', () => {
     const user = new User({ username: 'connor', password: 'password' });
-    console.log('here', typeof user._id);
     expect(user.toJSON()).toEqual({ username: 'connor', password: 'password', _id: expect.any(String) });
   });
 });

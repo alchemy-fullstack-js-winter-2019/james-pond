@@ -25,13 +25,10 @@ describe('auth route testing', () => {
   });
 
   it('can sign up a user', () => {
-    console.log('***AUTH TEST HERE***');
     return request(app)
       .post('/auth/signup')
       .send({ username: 'abel', password: 'password' })
       .then(res => {
-        console.log('id', typeof res.body.user._id, 'token', typeof res.body.token);
-        console.log('***RESBODY AUTH TEST***', res.body);
 
         expect(res.body).toEqual({ 
           user: {
@@ -53,7 +50,6 @@ describe('auth route testing', () => {
             password: 'password'
           })
           .then(res => {
-            console.log('hello', res.body);
             expect(res.body).toEqual({
               user: {
                 _id: expect.any(String),

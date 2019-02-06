@@ -9,9 +9,11 @@ describe('Comment model', () => {
     const comment = new Comment({
       user: user._id,
     });
+    console.log('blah', typeof user._id);
+  
     expect(comment.toJSON()).toEqual({
       user: Types.ObjectId(user._id),
-      _id: expect.any(Types.ObjectId)
+      _id: expect.any(String)
     });
   });
 
