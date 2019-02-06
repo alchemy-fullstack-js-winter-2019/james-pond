@@ -1,5 +1,5 @@
 const {
-  getRoute
+  getRoutes
 } = require('../service/TransitApi');
 
 describe('transit api service', () => {
