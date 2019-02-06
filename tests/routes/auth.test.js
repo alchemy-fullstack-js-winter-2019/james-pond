@@ -97,7 +97,4 @@ describe('auth route testing', () => {
         });
       });
   });
-
-
-
 });
