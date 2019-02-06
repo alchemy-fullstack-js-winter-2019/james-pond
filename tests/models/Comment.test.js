@@ -1,5 +1,5 @@
 const { getUser } = require('../dataHelpers');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const { Types } = require('mongoose');
 const Comment = require('../../lib/models/Comment');
 
@@ -9,7 +9,7 @@ describe('Comment model', () => {
     const comment = new Comment({
       user: user._id,
     });
-    console.log('blah', typeof user._id);
+    console.log('blah', user._id);
   
     expect(comment.toJSON()).toEqual({
       user: Types.ObjectId(user._id),
