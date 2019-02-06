@@ -24,7 +24,7 @@ describe('Trip info model', () => {
     });
   });
 
-  it('has a required stop name', () => {
+  it.only('has a required stop name', () => {
     const stop = new TripInfo({});
     console.log('***STOPPPP***', stop);
     // const errors = stop.validateSync().errors;
