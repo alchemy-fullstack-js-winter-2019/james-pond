@@ -15,6 +15,7 @@ describe('transit api service', () => {
   it('gets a list of stops', () => {
     return getRoutes(20)
       .then(routes => {
+        console.log(routes);
         expect(routes).toHaveLength(20);
       });
   });

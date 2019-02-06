@@ -6,10 +6,11 @@ const getRoutes = (num) => {
   return request
     .get('https://transit.land/api/v1/stops?lat=45.51925&lon=-122.68197&r=3200')
     .then(res => {
+      const stopsList = [];
       for(let i = 0; i < res.body.stops.length; i++) {
-        console.log('res here', res.body.stops[i].name);
-
+        stopsList.push(res.body.stops[i].name);
       }
+      return stopsList;
       // start: res.body.stops
     });
     
