@@ -24,10 +24,8 @@ describe('Trip info model', () => {
     });
   });
 
-  it.only('has a required stop name', () => {
-    const stop = new TripInfo({});
-    console.log('***STOPPPP***', stop);
-    // const errors = stop.validateSync().errors;
+  it('has a required stop name', () => {
+    const stop = new TripInfo({ stopName: '5th & Alder' });
     expect(stop.stopName).toEqual(expect.any(String));
   });
 });
