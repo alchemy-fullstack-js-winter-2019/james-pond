@@ -8,6 +8,7 @@ const User = require('../../lib/models/User');
 const TripInfo = require('../../lib/models/TripInfo');
 const app = require('../../lib/app');
 
+
 describe.skip('tripInfoRoute', () => {
   beforeAll(() => {
     connect();
@@ -21,18 +22,7 @@ describe.skip('tripInfoRoute', () => {
     mongoose.connection.close(done);
   });
 
-  const createUser = (username, passwordHash) => {
-    return User.create({ username, passwordHash })
-      .then(user => ({ ...user, _id: user._id.toString() }));
-  };
-
-  const createTrip = (stopName, coordinates = [5, 10], comments = ['Train delayed 20min']) => {
-    return TripInfo.create({ stopName, coordinates, comments })
-      .then(trip => {
-        console.log('trip', trip);
-        return { ...trip, _id: trip._id.toString() };
-      }); 
-  };
+  
 
   it('can create trip info', () => {
     return request(app)

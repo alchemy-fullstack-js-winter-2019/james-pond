@@ -6,7 +6,7 @@ const { Types } = require('mongoose');
 const TripInfo = require('../../lib/models/TripInfo');
 const app = require('../../lib/app');
 const request = require('supertest');
-const { createTrip } = require('../routes/tripInfo.test');
+const { createTrip } = require('../createHelpers');
 
 describe('Trip info model', () => {
 

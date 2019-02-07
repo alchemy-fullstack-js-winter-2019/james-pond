@@ -3,7 +3,7 @@ const { getUser } = require('../dataHelpers');
 const { Types } = require('mongoose');
 const Comment = require('../../lib/models/Comment');
 
-describe('Comment model', () => {
+describe.skip('Comment model', () => {
   it('validates a good model', async() => {
     const user = await getUser();
     const comment = new Comment({

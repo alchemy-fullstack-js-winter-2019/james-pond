@@ -2,7 +2,7 @@ require('dotenv').config();
 const { bearerToken, ensureUser } = require('../../lib/middleware/ensureUser');
 const { tokenize } = require('../../lib/utils/token');
 
-describe('ensureAuth', () => {
+describe.skip('ensureAuth', () => {
   it('can get a bearer token', () => {
 
     const req = {
