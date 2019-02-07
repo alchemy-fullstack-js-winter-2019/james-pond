@@ -5,8 +5,8 @@ const app = require('../../lib/app');
 const { getToken, getComment } = require('../dataHelpers');
 // const trip = require('../../lib/models/TripInfo');
 
-describe('comments', () => {
-  it.only('can post a comment', () => {
+describe.skip('comments', () => {
+  it('can post a comment', () => {
     return getComment()
       .then(something => {
         console.log('***USER***', something);
