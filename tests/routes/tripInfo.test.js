@@ -26,12 +26,12 @@ describe('tripInfoRoute', () => {
       .then(user => ({ ...user, _id: user._id.toString() }));
   };
 
-  const createTrip = (stopName, coordinates = [5, 10], comment = ['Train delayed 20min']) => {
-    return createUser('connor', 'axbxcx123x')
-      .then(user => {
-        return TripInfo.create({ stopName, coordinates, comment })
-          .then(trip => ({ ...trip, _id: trip._id.toString() }));
-      });
+  const createTrip = (stopName, coordinates = [5, 10], comments = ['Train delayed 20min']) => {
+    return TripInfo.create({ stopName, coordinates, comments })
+      .then(trip => {
+        console.log('trip', trip);
+        return { ...trip, _id: trip._id.toString() };
+      }); 
   };
 
   it('can create trip info', () => {
@@ -54,25 +54,22 @@ describe('tripInfoRoute', () => {
       });
   });
 
-  it('can get fullTripInfo', () => {
-    return createTrip('SW 5th & Alder', [100, 200], ['hola', 'muchachos'])
+  it.only('can get fullTripInfo', () => {
+    return createTrip('SW 5th & Alder')
       .then(createdTrip => {
-        return Promise.all([
-          Promise.resolve(createdTrip),
-          request(app)
-            .get()
-        ]);
-      });
-    return request(app)
-      .get('/tripInfo')
-      .then(res => {
-        console.log('body here', res.body);
-        expect(res.body).toEqual({
-          _id: expect.any(Types.ObjectId),
-          stopName: expect.any(String),
-          coordinates: expect.any(Array),
-          comments: expect.any(Array)
-        });
+        console.log('created', createdTrip._doc); 
+        return request(app)
+          .get('/tripInfo')
+          .then(res => {
+            console.log('body here', res.body);
+            expect(res.body).toEqual([{
+              _id: expect.any(String),
+              stopName: expect.any(String),
+              coordinates: expect.any(Array),
+              comments: expect.any(Array),
+              __v: 0
+            }]);
+          });
       });
   });
 });
