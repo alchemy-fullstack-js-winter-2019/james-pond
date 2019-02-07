@@ -12,8 +12,8 @@ describe('Comment model', () => {
     console.log('blah', user._id);
   
     expect(comment.toJSON()).toEqual({
-      user: Types.ObjectId(user._id),
-      _id: expect.any(String)
+      user: expect.any(String),
+      _id: expect.any(Types.ObjectId)
     });
   });
 
