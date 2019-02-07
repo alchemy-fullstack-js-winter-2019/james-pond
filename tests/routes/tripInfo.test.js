@@ -54,7 +54,7 @@ describe('tripInfoRoute', () => {
       });
   });
 
-  it.only('can get fullTripInfo', () => {
+  it('can get fullTripInfo', () => {
     return createTrip('SW 5th & Alder')
       .then(createdTrip => {
         console.log('created', createdTrip._doc); 
