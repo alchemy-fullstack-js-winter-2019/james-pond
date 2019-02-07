@@ -1,5 +1,5 @@
 require('dotenv').config();
-// const { getComment, getToken } = require('../dataHelpers');
+const { getComment, getToken } = require('../dataHelpers');
 const request = require('supertest');
 const { Types } = require('mongoose');
 const connect = require('../../lib/utils/connect');
@@ -20,18 +20,39 @@ describe('tripInfoRoute', () => {
     mongoose.connection.close(done);
   });
 
-  it('can get fullTripInfo', () => {
+  it('can create trip info', () => {
     return request(app)
-      .get('/tripInfo')
-      .send({ stopName: 'SW 5th & Alder', coordinates: [100, 120], comments: ['hi', 'holA'] })
+      .post('/tripInfo')
+      .set('Authorization', `Bearer ${getToken()}`)
+      .send({
+        stopName: 'SW 5th & Alder',
+        coordinates: [56, 234],
+        comments: ['comment 1', 'comment 2']
+      })
       .then(res => {
-        console.log('body here', res.body);
+        console.log('***RES BODY TRIP INFO TEST***', res.body);
         expect(res.body).toEqual({
           _id: expect.any(Types.ObjectId),
-          stopName: expect.any(String),
-          coordinates: expect.any(Array),
-          comments: expect.any(Array)
+          stopName: 'SW 5th & Alder',
+          coordinates: [56, 234],
+          comments: ['comment 1', 'comment 2'],
+          __v: 0
         });
       });
   });
+
+  // it('can get fullTripInfo', () => {
+  //   return request(app)
+  //     .get('/tripInfo')
+  //     .send({ stopName: 'SW 5th & Alder', coordinates: [100, 120], comments: ['hi', 'holA'] })
+  //     .then(res => {
+  //       console.log('body here', res.body);
+  //       expect(res.body).toEqual({
+  //         _id: expect.any(Types.ObjectId),
+  //         stopName: expect.any(String),
+  //         coordinates: expect.any(Array),
+  //         comments: expect.any(Array)
+  //       });
+  //     });
+  // });
 });
