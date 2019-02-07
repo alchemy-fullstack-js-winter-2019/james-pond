@@ -4,7 +4,8 @@ const request = require('supertest');
 const { Types } = require('mongoose');
 const connect = require('../../lib/utils/connect');
 const mongoose = require('mongoose');
-
+const User = require('../../lib/models/User');
+const TripInfo = require('../../lib/models/TripInfo');
 const app = require('../../lib/app');
 
 describe('tripInfoRoute', () => {
@@ -20,7 +21,20 @@ describe('tripInfoRoute', () => {
     mongoose.connection.close(done);
   });
 
-  it.only('can create trip info', () => {
+  const createUser = (username, passwordHash) => {
+    return User.create({ username, passwordHash })
+      .then(user => ({ ...user, _id: user._id.toString() }));
+  };
+
+  const createTrip = (stopName, coordinates = [5, 10], comment = ['Train delayed 20min']) => {
+    return createUser('connor', 'axbxcx123x')
+      .then(user => {
+        return TripInfo.create({ stopName, coordinates, comment })
+          .then(trip => ({ ...trip, _id: trip._id.toString() }));
+      });
+  };
+
+  it('can create trip info', () => {
     return request(app)
       .post('/tripInfo')
       .set('Authorization', `Bearer ${getToken()}`)
@@ -41,6 +55,14 @@ describe('tripInfoRoute', () => {
   });
 
   it('can get fullTripInfo', () => {
+    return createTrip('SW 5th & Alder', [100, 200], ['hola', 'muchachos'])
+      .then(createdTrip => {
+        return Promise.all([
+          Promise.resolve(createdTrip),
+          request(app)
+            .get()
+        ]);
+      });
     return request(app)
       .get('/tripInfo')
       .then(res => {
