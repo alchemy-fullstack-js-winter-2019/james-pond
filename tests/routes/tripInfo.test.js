@@ -20,7 +20,7 @@ describe('tripInfoRoute', () => {
     mongoose.connection.close(done);
   });
 
-  it('can create trip info', () => {
+  it.only('can create trip info', () => {
     return request(app)
       .post('/tripInfo')
       .set('Authorization', `Bearer ${getToken()}`)
@@ -40,18 +40,17 @@ describe('tripInfoRoute', () => {
       });
   });
 
-  // it('can get fullTripInfo', () => {
-  //   return request(app)
-  //     .get('/tripInfo')
-  //     .send({ stopName: 'SW 5th & Alder', coordinates: [100, 120], comments: ['hi', 'holA'] })
-  //     .then(res => {
-  //       console.log('body here', res.body);
-  //       expect(res.body).toEqual({
-  //         _id: expect.any(Types.ObjectId),
-  //         stopName: expect.any(String),
-  //         coordinates: expect.any(Array),
-  //         comments: expect.any(Array)
-  //       });
-  //     });
-  // });
+  it('can get fullTripInfo', () => {
+    return request(app)
+      .get('/tripInfo')
+      .then(res => {
+        console.log('body here', res.body);
+        expect(res.body).toEqual({
+          _id: expect.any(Types.ObjectId),
+          stopName: expect.any(String),
+          coordinates: expect.any(Array),
+          comments: expect.any(Array)
+        });
+      });
+  });
 });
