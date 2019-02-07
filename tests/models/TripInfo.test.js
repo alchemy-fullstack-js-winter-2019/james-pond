@@ -4,8 +4,12 @@ const mongoose = require('mongoose');
 const { Types } = require('mongoose');
 // const { tokenize, untokenize } = require('../../lib/utils/token');
 const TripInfo = require('../../lib/models/TripInfo');
+const app = require('../../lib/app');
+const request = require('supertest');
+const { createTrip } = require('../routes/tripInfo.test');
 
 describe('Trip info model', () => {
+
   beforeEach(done => {
     mongoose.connection.dropDatabase(done);
   });
@@ -27,5 +31,24 @@ describe('Trip info model', () => {
   it('has a required stop name', () => {
     const stop = new TripInfo({ stopName: '5th & Alder' });
     expect(stop.stopName).toEqual(expect.any(String));
+  });
+
+  it.only('gets stop by id', () => {
+    return createTrip('SW 5th & Alder', [3, 5], ['comment1', 'comment2'])
+      .then(createdTrip => {
+        return Promise.all([
+          Promise.resolve(createdTrip._id),
+          request(app)
+            .get(`/trips/${createdTrip._id}`)
+        ]);
+      })
+      .then(([_id, res]) => {
+        expect(res.body).toEqual({
+          stopName: expect.any(String),
+          coordinates: expect.any(Array),
+          comments: expect.any(Array),
+          _id
+        });
+      });
   });
 });
