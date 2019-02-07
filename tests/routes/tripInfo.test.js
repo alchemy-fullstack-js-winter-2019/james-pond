@@ -30,9 +30,8 @@ describe('tripInfoRoute', () => {
         comments: ['comment 1', 'comment 2']
       })
       .then(res => {
-        console.log('***RES BODY TRIP INFO TEST***', res.body);
         expect(res.body).toEqual({
-          _id: expect.any(Types.ObjectId),
+          _id: expect.any(String),
           stopName: 'SW 5th & Alder',
           coordinates: [56, 234],
           comments: ['comment 1', 'comment 2'],
