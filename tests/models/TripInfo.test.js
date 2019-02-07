@@ -36,14 +36,16 @@ describe('Trip info model', () => {
   it.only('gets stop by id', () => {
     return createTrip('SW 5th & Alder', [3, 5], ['comment1', 'comment2'])
       .then(createdTrip => {
+        console.log('created trip', createdTrip);
         return Promise.all([
-          Promise.resolve(createdTrip._id),
+          Promise.resolve(createdTrip._doc._id),
           request(app)
-            .get(`/trips/${createdTrip._id}`)
+            .get(`/tripInfo/${createdTrip._doc._id}`)
         ]);
       })
-      .then(([_id, res]) => {
-        expect(res.body).toEqual({
+      .then(([_id, createdTrip]) => {
+        // console.log('body here', [createdTrip]);
+        expect(createdTrip._doc).toEqual({
           stopName: expect.any(String),
           coordinates: expect.any(Array),
           comments: expect.any(Array),
