@@ -21,7 +21,7 @@ describe('Trip info model', () => {
       comments: ['comment1', 'comment2']
     });
     expect(trip.toJSON()).toEqual({
-      _id: expect.any(Types.ObjectId), 
+      _id: expect.any(String), 
       stopName: expect.any(String),
       coordinates: expect.any(Array),
       comments: expect.any(Array)
@@ -38,14 +38,14 @@ describe('Trip info model', () => {
       .then(createdTrip => {
         console.log('created trip', createdTrip);
         return Promise.all([
-          Promise.resolve(createdTrip._doc._id),
+          Promise.resolve(createdTrip._id),
           request(app)
-            .get(`/tripInfo/${createdTrip._doc._id}`)
+            .get(`/tripInfo/${createdTrip._id}`)
         ]);
       })
-      .then(([_id, createdTrip]) => {
-        // console.log('body here', [createdTrip]);
-        expect(createdTrip._doc).toEqual({
+      .then(([_id, res]) => {
+        // console.log('response*******', res);
+        expect(res.body).toEqual({
           stopName: expect.any(String),
           coordinates: expect.any(Array),
           comments: expect.any(Array),

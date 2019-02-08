@@ -22,8 +22,6 @@ describe.skip('tripInfoRoute', () => {
     mongoose.connection.close(done);
   });
 
-  
-
   it('can create trip info', () => {
     return request(app)
       .post('/tripInfo')
