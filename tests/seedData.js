@@ -1,4 +1,3 @@
-
 const User = require('../lib/models/User');
 const Comment = require('../lib/models/Comment');
 const Chance = require('chance');

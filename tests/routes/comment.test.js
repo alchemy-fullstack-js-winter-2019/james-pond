@@ -3,7 +3,7 @@ require('../../lib/utils/connect')();
 const request = require('supertest');
 const app = require('../../lib/app');
 const { getToken, getComment } = require('../dataHelpers');
-const { createTrip } = require('../../tests/createHelpers');
+const { createTrip, createComment } = require('../../tests/createHelpers');
 const mongoose = require('mongoose');
 
 
@@ -16,10 +16,31 @@ describe('comments', () => {
     mongoose.connection.close(done);
   });
 
-  it.only('can post a comment', () => {
+  it.only('can create a new comment', () => {
+    return createComment()
+      .then(comment => {
+        console.log('****SOMETHING ABSURD****', comment);
+        return request(app)
+          .post('/comment')
+          .send({
+            user: expect.any(String),
+            text: 'whateva'
+          })
+          .then(res => {
+            console.log('***GONNA RES THAT BODY***', res.body);
+            expect(res.body).toEqual({
+              user: expect.any(String),
+              text: expect.any(String),
+              _id: expect.any(String),
+              __v: 0
+            });
+          });
+      });
+  });
+
+  it('can post a comment', () => {
     return getComment()
-      .then(something => {
-        console.log('***USER***', something);
+      .then(() => {
         return request(app)
           .post('/comments')
           .send({ user: user._id, text: 'whateva' })
@@ -39,7 +60,6 @@ describe('comments', () => {
   it('can get a comment by trip info id', () => {
     return createTrip('SW 5th & Alder')
       .then(createdTrip => {
-        console.log('TRIP', createdTrip);
         return Promise.all([
           Promise.resolve(createdTrip._id),
           request(app)

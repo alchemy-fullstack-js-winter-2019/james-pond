@@ -8,7 +8,10 @@
     "test:watch": "jest --watch --verbose --runInBand --detectOpenHandles",
     "start": "node server.js",
     "start:watch": "nodemon server.js",
-    "seed": "node seed.js"
+    "seed": "node seed.js",
+    "play": "node client/client.js",
+    "drop": "mongo jamespond --eval 'db.dropDatabase()'",
+    "db-load-all": "npm run drop && npm run seed" 
   },
   "keywords": [],
   "author": "",
