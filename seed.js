@@ -4,6 +4,6 @@ require('./lib/utils/connect');
 const mongoose = require('mongoose');
 const seedData = require('./tests/seedData');
 
-seedData()
+seedData({})
   .then(() => console.log('done'))
-  .then(() => mongoose.connection.close());
+  .finally(() => mongoose.connection.close());
