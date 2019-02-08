@@ -1,12 +1,10 @@
 require('dotenv').config();
 require('../../lib/utils/connect')();
 const mongoose = require('mongoose');
-const { Types } = require('mongoose');
-// const { tokenize, untokenize } = require('../../lib/utils/token');
 const TripInfo = require('../../lib/models/TripInfo');
 const app = require('../../lib/app');
 const request = require('supertest');
-const { createTrip } = require('../createHelpers');
+
 
 describe.skip('Trip info model', () => {
 
@@ -34,7 +32,7 @@ describe.skip('Trip info model', () => {
   });
 
   it('gets stop by id', () => {
-    return createTrip('SW 5th & Alder', [3, 5], ['comment1', 'comment2'])
+    return TripInfo.create({ stopName: 'SW 5th & Alder', coordinates: [3, 5], comments: ['comment1', 'comment2'] })
       .then(createdTrip => {
         return Promise.all([
           Promise.resolve(createdTrip._id),
@@ -43,11 +41,12 @@ describe.skip('Trip info model', () => {
         ]);
       })
       .then(([_id, res]) => {
+        console.log('body', res.body);
         expect(res.body).toEqual({
           stopName: expect.any(String),
           coordinates: expect.any(Array),
           comments: expect.any(Array),
-          _id
+          _id: expect.any(String)
         });
       });
   });

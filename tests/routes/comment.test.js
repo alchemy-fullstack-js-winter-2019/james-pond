@@ -3,10 +3,20 @@ require('../../lib/utils/connect')();
 const request = require('supertest');
 const app = require('../../lib/app');
 const { getToken, getComment } = require('../dataHelpers');
-// const trip = require('../../lib/models/TripInfo');
+const { createTrip } = require('../../tests/createHelpers');
+const mongoose = require('mongoose');
+
 
 describe('comments', () => {
-  it('can post a comment', () => {
+  beforeEach(done => {
+    mongoose.connection.dropDatabase(done);
+  });
+
+  afterAll(done => {
+    mongoose.connection.close(done);
+  });
+
+  it.only('can post a comment', () => {
     return getComment()
       .then(something => {
         console.log('***USER***', something);
@@ -21,13 +31,15 @@ describe('comments', () => {
               _id: expect.any(String),
               __v: 0
             });
+          
           });
       });
   });
 
-  it.only('can get a comment by trip info id', () => {
+  it('can get a comment by trip info id', () => {
     return createTrip('SW 5th & Alder')
       .then(createdTrip => {
+        console.log('TRIP', createdTrip);
         return Promise.all([
           Promise.resolve(createdTrip._id),
           request(app)
