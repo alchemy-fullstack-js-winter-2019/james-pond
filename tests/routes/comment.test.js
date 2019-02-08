@@ -7,7 +7,7 @@ const { createTrip, createComment } = require('../../tests/createHelpers');
 const mongoose = require('mongoose');
 
 
-describe.skip('comments', () => {
+describe('comments', () => {
   beforeEach(done => {
     mongoose.connection.dropDatabase(done);
   });

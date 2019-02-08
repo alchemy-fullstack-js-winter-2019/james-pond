@@ -11,7 +11,7 @@ const createUser = (username) => {
   return User.create({ username, password: 'password' });
 };
 
-describe.skip('auth route testing', () => {
+describe('auth route testing', () => {
   beforeAll(() => {
     connect();
   });

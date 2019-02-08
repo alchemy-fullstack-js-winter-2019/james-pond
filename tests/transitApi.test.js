@@ -2,7 +2,7 @@ const {
   getRoutes
 } = require('../service/TransitApi');
 
-describe.skip('transit api service', () => {
+describe('transit api service', () => {
 
   it('gets a list of stops', () => {
     return getRoutes()

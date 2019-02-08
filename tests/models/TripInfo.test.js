@@ -6,7 +6,7 @@ const app = require('../../lib/app');
 const request = require('supertest');
 const { Types } = require('mongoose');
 
-describe.skip('Trip info model', () => {
+describe('Trip info model', () => {
 
   beforeEach(done => {
     mongoose.connection.dropDatabase(done);
