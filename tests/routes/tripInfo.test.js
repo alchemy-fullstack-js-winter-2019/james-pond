@@ -9,7 +9,7 @@ const TripInfo = require('../../lib/models/TripInfo');
 const app = require('../../lib/app');
 
 
-describe.skip('tripInfoRoute', () => {
+describe('tripInfoRoute', () => {
   beforeAll(() => {
     connect();
   });
@@ -56,6 +56,26 @@ describe.skip('tripInfoRoute', () => {
               __v: 0
             }]);
           });
+      });
+  });
+
+  it.only('gets stop by id', () => {
+    return TripInfo.create({ stopName: 'SW 5th & Alder', coordinates: [3, 5], comments: ['comment1', 'comment2'] })
+      .then(createdTrip => {
+        return Promise.all([
+          Promise.resolve(createdTrip._id),
+          request(app)
+            .get(`/tripInfo/${createdTrip._id}`)
+        ]);
+      })
+      .then(([_id, res]) => {
+        console.log('***RES***', res.body);
+        expect(res.body).toEqual({
+          stopName: 'SW 5th & Alder',
+          coordinates: [3, 5],
+          comments: ['comment1', 'comment2'],
+          _id: _id.toString()
+        });
       });
   });
 });
