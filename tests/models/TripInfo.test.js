@@ -36,7 +36,7 @@ describe('Trip info model', () => {
   it.only('gets stop by id', () => {
     return createTrip('SW 5th & Alder', [3, 5], ['comment1', 'comment2'])
       .then(createdTrip => {
-        console.log('created trip', createdTrip);
+        console.log('created trip', createdTrip._id);
         return Promise.all([
           Promise.resolve(createdTrip._id),
           request(app)
