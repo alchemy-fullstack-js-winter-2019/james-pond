@@ -5,7 +5,7 @@ const app = require('../../lib/app');
 const { getToken, getComment } = require('../dataHelpers');
 // const trip = require('../../lib/models/TripInfo');
 
-describe.skip('comments', () => {
+describe('comments', () => {
   it('can post a comment', () => {
     return getComment()
       .then(something => {
@@ -22,6 +22,24 @@ describe.skip('comments', () => {
               __v: 0
             });
           });
+      });
+  });
+
+  it.only('can get a comment by trip info id', () => {
+    return createTrip('SW 5th & Alder')
+      .then(createdTrip => {
+        return Promise.all([
+          Promise.resolve(createdTrip._id),
+          request(app)
+            .get(`/tripInfo/${createdTrip._id}`)
+        ]);
+      })
+      .then(([_id, res]) =>{
+        expect(res.body).toEqual({
+          user: expect.any(String),
+          text: expect.any(String),
+          _id
+        });
       });
   });
 });

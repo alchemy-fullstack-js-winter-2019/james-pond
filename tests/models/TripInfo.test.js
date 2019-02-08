@@ -8,7 +8,7 @@ const app = require('../../lib/app');
 const request = require('supertest');
 const { createTrip } = require('../createHelpers');
 
-describe('Trip info model', () => {
+describe.skip('Trip info model', () => {
 
   beforeEach(done => {
     mongoose.connection.dropDatabase(done);
@@ -33,10 +33,9 @@ describe('Trip info model', () => {
     expect(stop.stopName).toEqual(expect.any(String));
   });
 
-  it.only('gets stop by id', () => {
+  it('gets stop by id', () => {
     return createTrip('SW 5th & Alder', [3, 5], ['comment1', 'comment2'])
       .then(createdTrip => {
-        console.log('created trip', createdTrip._id);
         return Promise.all([
           Promise.resolve(createdTrip._id),
           request(app)
@@ -44,7 +43,6 @@ describe('Trip info model', () => {
         ]);
       })
       .then(([_id, res]) => {
-        // console.log('response*******', res);
         expect(res.body).toEqual({
           stopName: expect.any(String),
           coordinates: expect.any(Array),
