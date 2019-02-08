@@ -1,13 +1,11 @@
 require('dotenv').config();
-const { getComment, getToken } = require('../dataHelpers');
+const { getToken } = require('../dataHelpers');
 const request = require('supertest');
-const { Types } = require('mongoose');
 const connect = require('../../lib/utils/connect');
 const mongoose = require('mongoose');
-const User = require('../../lib/models/User');
 const TripInfo = require('../../lib/models/TripInfo');
 const app = require('../../lib/app');
-
+const { createTrip } = require('../createHelpers');
 
 describe('tripInfoRoute', () => {
   beforeAll(() => {
@@ -44,7 +42,7 @@ describe('tripInfoRoute', () => {
 
   it('can get fullTripInfo', () => {
     return createTrip('SW 5th & Alder')
-      .then(createdTrip => {
+      .then(() => {
         return request(app)
           .get('/tripInfo')
           .then(res => {
@@ -59,7 +57,7 @@ describe('tripInfoRoute', () => {
       });
   });
 
-  it.only('gets stop by id', () => {
+  it('gets stop by id', () => {
     return TripInfo.create({ stopName: 'SW 5th & Alder', coordinates: [3, 5], comments: ['comment1', 'comment2'] })
       .then(createdTrip => {
         return Promise.all([
@@ -69,7 +67,6 @@ describe('tripInfoRoute', () => {
         ]);
       })
       .then(([_id, res]) => {
-        console.log('***RES***', res.body);
         expect(res.body).toEqual({
           stopName: 'SW 5th & Alder',
           coordinates: [3, 5],
@@ -78,4 +75,5 @@ describe('tripInfoRoute', () => {
         });
       });
   });
+  
 });

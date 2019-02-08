@@ -18,7 +18,7 @@ describe('comments', () => {
 
   it('can create a new comment', () => {
     return createComment()
-      .then(comment => {
+      .then(() => {
         return request(app)
           .post('/comment')
           .send({
@@ -38,7 +38,7 @@ describe('comments', () => {
 
   it('can post a comment', () => {
     return getComment()
-      .then(() => {
+      .then(user => {
         return request(app)
           .post('/comments')
           .send({ user: user._id, text: 'whateva' })
@@ -72,4 +72,5 @@ describe('comments', () => {
         });
       });
   });
+
 });

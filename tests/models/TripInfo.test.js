@@ -2,9 +2,6 @@ require('dotenv').config();
 require('../../lib/utils/connect')();
 const mongoose = require('mongoose');
 const TripInfo = require('../../lib/models/TripInfo');
-const app = require('../../lib/app');
-const request = require('supertest');
-const { Types } = require('mongoose');
 
 describe('Trip info model', () => {
 
@@ -30,6 +27,5 @@ describe('Trip info model', () => {
     const stop = new TripInfo({ stopName: '5th & Alder' });
     expect(stop.stopName).toEqual(expect.any(String));
   });
-
   
 });

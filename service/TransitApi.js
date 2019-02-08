@@ -11,9 +11,7 @@ const getRoutes = () => {
         stopsList.push(res.body.stops[i].name);
       }
       return stopsList;
-      // start: res.body.stops
     });
-    
 };
 
 module.exports = { 

@@ -74,6 +74,7 @@ describe('auth route testing', () => {
         expect(res.status).toEqual(401);
       });
   });
+  
   it('can not sign in a user with a bad username', () => {
     return request(app)
       .post('/auth/signin')
@@ -97,4 +98,5 @@ describe('auth route testing', () => {
         });
       });
   });
+
 });
