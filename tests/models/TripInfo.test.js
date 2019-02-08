@@ -6,7 +6,7 @@ const app = require('../../lib/app');
 const request = require('supertest');
 
 
-describe.skip('Trip info model', () => {
+describe('Trip info model', () => {
 
   beforeEach(done => {
     mongoose.connection.dropDatabase(done);
@@ -41,7 +41,6 @@ describe.skip('Trip info model', () => {
         ]);
       })
       .then(([_id, res]) => {
-        console.log('body', res.body);
         expect(res.body).toEqual({
           stopName: expect.any(String),
           coordinates: expect.any(Array),

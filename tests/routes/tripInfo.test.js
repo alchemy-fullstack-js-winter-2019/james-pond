@@ -45,11 +45,9 @@ describe.skip('tripInfoRoute', () => {
   it('can get fullTripInfo', () => {
     return createTrip('SW 5th & Alder')
       .then(createdTrip => {
-        console.log('created', createdTrip._doc); 
         return request(app)
           .get('/tripInfo')
           .then(res => {
-            console.log('body here', res.body);
             expect(res.body).toEqual([{
               _id: expect.any(String),
               stopName: expect.any(String),

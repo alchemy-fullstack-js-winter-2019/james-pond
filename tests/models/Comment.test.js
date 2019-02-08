@@ -9,8 +9,6 @@ describe.skip('Comment model', () => {
     const comment = new Comment({
       user: user._id,
     });
-    console.log('blah', user._id);
-  
     expect(comment.toJSON()).toEqual({
       user: expect.any(String),
       _id: expect.any(Types.ObjectId)

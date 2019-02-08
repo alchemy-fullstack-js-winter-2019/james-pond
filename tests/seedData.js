@@ -10,7 +10,6 @@ module.exports = ({
   totalUsers = DEFAULT_TOTAL_USERS,
   totalComments = DEFAULT_TOTAL_COMMENTS,
 }) => {
-  console.log('USERS');
   return Promise.all(
     [...Array(totalUsers)].map((ele, i) => User.create({ username: `seed${i}`, password: 'password' }))
   )
