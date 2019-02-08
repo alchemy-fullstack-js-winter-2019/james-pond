@@ -27,7 +27,7 @@ describe('comments', () => {
             text: 'whateva'
           })
           .then(res => {
-            console.log('***GONNA RES THAT BODY***', res.body);
+            console.log('***GONNA RES THAT BODY***', typeof res.body._id);
             expect(res.body).toEqual({
               user: expect.any(String),
               text: expect.any(String),
