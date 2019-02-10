@@ -1,5 +1,5 @@
 # Team-Fish
-
+Welcome to our backend app: james-pond! Originally planned to be a choose your own adventury spy game, we scaled it down to a transit messaging board app, where users can create and see comments for 50 different transit stops in the Portland Metro Area. Data was pulled from the TransitLand API (http://www.transit.land/documentation/).
 
 ## Coding Standards
 
