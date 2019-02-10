@@ -1,4 +1,4 @@
-# team-fish
+# Team-Fish
 
 
 ## Coding Standards
