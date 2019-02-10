@@ -9,9 +9,11 @@
     "start": "node server.js",
     "start:watch": "nodemon server.js",
     "seed": "node seed.js",
+    // Is this your code???
+    // It looks copied.
     "play": "node client/client.js",
     "drop": "mongo jamespond --eval 'db.dropDatabase()'",
-    "db-load-all": "npm run drop && npm run seed" 
+    "db-load-all": "npm run drop && npm run seed"
   },
   "keywords": [],
   "author": "",

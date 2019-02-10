@@ -6,6 +6,7 @@ const chance = new Chance();
 const DEFAULT_TOTAL_USERS = 10;
 const DEFAULT_TOTAL_COMMENTS = 100;
 
+// What about creating trips here??
 module.exports = ({
   totalUsers = DEFAULT_TOTAL_USERS,
   totalComments = DEFAULT_TOTAL_COMMENTS,
